@@ -1,9 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
+import { useSpring, animated } from 'react-spring';
 
-function App() {
+const  App = () => {
+  const fade = useSpring({
+    from: {
+      opacity: 0
+    },
+    to: {
+      opacity: 1
+    }
+  });
+
   return (
-    <div className="App">
+    <animated.div className="App" style={fade}>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -18,7 +28,7 @@ function App() {
           Learn React
         </a>
       </header>
-    </div>
+    </animated.div>
   );
 }
 
