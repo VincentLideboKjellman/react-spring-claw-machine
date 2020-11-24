@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useSpring, animated } from 'react-spring';
+import Toggle from './Toggle';
 
 const  App = () => {
   const fade = useSpring({
@@ -14,7 +15,9 @@ const  App = () => {
 
   return (
     <animated.div className="App" style={fade}>
+      
       <header className="App-header">
+      <Toggle/>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
