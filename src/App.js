@@ -1,37 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
-import { useSpring, animated } from 'react-spring';
-import Toggle from './Toggle';
+import Scene from './components/Scene'
 
 const  App = () => {
-  const fade = useSpring({
-    from: {
-      opacity: 0
-    },
-    to: {
-      opacity: 1
-    }
-  });
-
   return (
-    <animated.div className="App" style={fade}>
-      
-      <header className="App-header">
-      <Toggle/>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </animated.div>
+    <div className="App">
+      <Scene sceneWidth="1920px" sceneHeight="1080px"/>
+    </div>
   );
 }
 
