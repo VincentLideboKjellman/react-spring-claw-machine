@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSpring, animated } from 'react-spring';
+import { useSpring, animated, config } from 'react-spring';
 
 
 
@@ -13,7 +13,9 @@ const Toggle = () => {
         // opacity: isToggled ? 1 : 0,
         color: isToggled ? '#000' : 'green',
         // fontSize: isToggled ? '2rem' : '3em',
-        transform: isToggled ? 'translate3d(-90%,0,0)' : 'translate3d(90%, 0, 0)'
+        transform: isToggled ? 'translate3d(-90%,0,0)' : 'translate3d(90%, 0, 0)',
+        config: config.wobbly
+        
     });
 
     return (
