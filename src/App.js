@@ -4,7 +4,7 @@ import Scene from './components/Scene'
 const  App = () => {
   return (
     <div className="App">
-      <Scene sceneWidth="1920px" sceneHeight="1080px"/>
+      <Scene scenewidth="1920px" sceneheight="1080px"/>
     </div>
   );
 }

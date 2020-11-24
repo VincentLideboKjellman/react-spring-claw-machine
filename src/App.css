@@ -8,11 +8,12 @@ body {
   color: white;
 }
 
+
 .App {
-  display: grid;
+  /* display: grid;
   place-items: center;
-  height: 100vh;
-}
+  height: 100vh; */ 
+} 
 h1 {
   margin: 0;
 }
