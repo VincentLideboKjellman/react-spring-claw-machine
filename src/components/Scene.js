@@ -3,6 +3,8 @@ import { useSpring, animated } from 'react-spring';
 import styled from 'styled-components';
 import Backdrop from './Backdrop';
 import ClawBase from './ClawBase';
+import ClawLeft from './ClawLeft';
+import ClawRight from './ClawRight';
 import PizzaPile from './PizzaPile';
 import Table from './Table';
 
@@ -36,6 +38,8 @@ const Scene = ({...props}) => {
         <Table/>
         {/* Claw */}
         <ClawBase />
+        <ClawLeft />
+        <ClawRight />
       </StyledScene>
   );
 }
