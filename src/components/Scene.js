@@ -16,6 +16,13 @@ const StyledScene = styled(animated.div)`
     width: ${props => (props.scenewidth ? props.scenewidth : "auto")};
     height: ${props => (props.sceneweight ? props.sceneweight : "auto")};
     background-color: #000;
+
+    .claw-machine{
+      // position: absolute;
+      // z-index: 2;
+      // top: 0;
+      // left:0;
+    }
 `
 
 const Scene = ({...props}) => {
@@ -49,6 +56,25 @@ const Scene = ({...props}) => {
     },
   })
 
+  //lower/up the claw
+  const lowerClaw = useSpring({
+    transform: isPressed ? 'translate3d(0,500px,0)' : 'translate3d(0, 0px, 0)',
+    config: {
+      mass: 100, tension: 580, friction: 200,
+    },
+  });
+
+  //Grip Claw NOT DONE
+  const movingShake = useSpring({
+    transform: isPressed ? 'transform: rotate(0deg)' : 'transform: rotate(20deg)',
+    config: {
+      mass: 100, tension: 580, friction: 200,
+    },
+  });
+
+  //Shake animation
+  //Grip Claw
+  //Pizza grabbed
 
 console.log(isPressed);
 
@@ -60,10 +86,10 @@ console.log(isPressed);
         <PizzaPile/>
         <Table/>
         {/* Claw */}
-        <animated.div style={repeat} className="claw-machine">
+        <animated.div className="claw-machine">
           <ClawBase/>
-          <animated.div className="claws">
-            <ClawLeft />
+          <animated.div style={gripClawLeft} className="claws">
+            <ClawLeft/>
             <ClawRight />
           </animated.div>
         </animated.div>
