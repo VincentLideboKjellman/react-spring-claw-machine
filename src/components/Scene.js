@@ -15,8 +15,7 @@ const StyledScene = styled(animated.div)`
     //overflow: hidden;
     width: ${props => (props.scenewidth ? props.scenewidth : "auto")};
     height: ${props => (props.sceneweight ? props.sceneweight : "auto")};
-    //background-color: #000;
-    background-color: red;
+    background-color: #000;
     
 `
 
@@ -31,15 +30,30 @@ const Scene = ({...props}) => {
     }
   });
 
+  const toRight = useSpring({
+    from: {
+      opacity: 0
+    },
+    to: {
+      opacity: 1
+    }
+  });
+
+
+
   return (
       <StyledScene style={fade} {...props}>
         <Backdrop backWidth={props.scenewidth} backHeight={props.sceneweight} />
         <PizzaPile/>
         <Table/>
         {/* Claw */}
-        <ClawBase />
-        <ClawLeft />
-        <ClawRight />
+        <div className="claw-machine">
+          <ClawBase />
+          <div className="claws">
+            <ClawLeft />
+            <ClawRight />
+          </div>
+        </div>
       </StyledScene>
   );
 }

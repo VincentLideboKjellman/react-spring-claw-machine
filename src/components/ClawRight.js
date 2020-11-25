@@ -8,9 +8,8 @@ overflow: hidden;
 top: 210px;
 right: 31%;
 
-
 img{
-    width: 60%;
+    width: 50%;
 }
 
 `

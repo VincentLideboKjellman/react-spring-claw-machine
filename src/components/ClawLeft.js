@@ -6,10 +6,10 @@ const StyledClawLeft = styled.div`
 position: absolute;
 overflow: hidden;
 top: 210px;
-right: 41%;
+right: 39%;
 
 img{
-    width: 60%;
+    width: 50%;
 }
 
 `
