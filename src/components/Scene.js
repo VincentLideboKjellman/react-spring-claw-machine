@@ -6,6 +6,7 @@ import ClawBase from './ClawBase';
 import ClawLeft from './ClawLeft';
 import ClawRight from './ClawRight';
 import PizzaPile from './PizzaPile';
+import SinglePizza from './SinglePizza';
 import Table from './Table';
 
 
@@ -24,11 +25,19 @@ const StyledScene = styled(animated.div)`
       left: 0;
       width:100%;
     }
+    .pizza-box{
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      left: 0;
+      width:100%;
+    }
 `
 
 const Scene = ({...props}) => {
 
   let [isPressed, setPressed] = useState(false);
+  let [togglePizza, setTogglePizza] = useState(false);
 
   
   const fade = useSpring({
@@ -55,7 +64,8 @@ const Scene = ({...props}) => {
       }if(isPressed){
         await next({ left: "0px" })
         await next({ top: "600px"})
-        await next({ top: "500px"})
+        await next({ top: "450px"})
+        setTogglePizza(true);
         await next({ top: "0px"})
       }
     },
@@ -63,6 +73,24 @@ const Scene = ({...props}) => {
       mass: 50, tension: 580, friction: 200,
     },
   })
+
+  //TODO: Might need to do interpolation
+  const spawnPizza = useSpring({
+    from: {
+      top: "0px",
+      opacity: 0,
+    },
+    to: async next => {
+      if(togglePizza){
+        await next ({ opacity: 1 })
+        await next ({ top: "-100px" })
+        await next ({ top: "-600px" })
+      }
+    },
+    config: {
+      mass: 50, tension: 580, friction: 200,
+    },
+  });
 
  
   
@@ -86,6 +114,9 @@ console.log(isPressed);
             <ClawLeft/>
             <ClawRight />
           </animated.div>
+        </animated.div>
+        <animated.div style={spawnPizza} className="pizza-box">
+          <SinglePizza  />
         </animated.div>
       </StyledScene>
         <button style={{position:"absolute", top:0, color: "red", zIndex: "20"}} onClick={() => setPressed(isPressed = true)}>OFF</button>
