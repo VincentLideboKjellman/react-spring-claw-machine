@@ -47,12 +47,12 @@ const Scene = ({...props}) => {
       left: "0px"
      },
     to: async next => {
-      if (!isPressed) {
+      while (!isPressed) {
         await next({ left: "200px" })
         await next({ left: "0px" })
         await next({ left: "-200px" })
         await next({ left: "0px" })
-      }else{
+      }if(isPressed){
         await next({ left: "0px" })
         await next({ top: "600px"})
         await next({ top: "500px"})
