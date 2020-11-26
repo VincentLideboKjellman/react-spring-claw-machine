@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSpring, animated } from 'react-spring';
+import React, { useState, useRef } from 'react';
+import { useSpring, animated, config, useChain, useTransition } from 'react-spring';
 import styled from 'styled-components';
 import Backdrop from './Backdrop';
 import ClawBase from './ClawBase';
@@ -18,16 +18,18 @@ const StyledScene = styled(animated.div)`
     background-color: #000;
 
     .claw-machine{
-      // position: absolute;
-      // z-index: 2;
-      // top: 0;
-      // left:0;
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width:100%;
     }
 `
 
 const Scene = ({...props}) => {
 
   let [isPressed, setPressed] = useState(false);
+
   
   const fade = useSpring({
     from: {
@@ -38,46 +40,38 @@ const Scene = ({...props}) => {
     }
   });
 
-  //Back and forth moving animation
+  // Claw Moving animation
   const repeat = useSpring({
-    from: { 
-      transform: 'translate3d(0%,0,0)'
+    from: {
+      top:"0px",
+      left: "0px"
      },
     to: async next => {
-      while (!isPressed) {
-        await next({ transform: 'translate3d(20%,0,0)' })
-        await next({ transform: 'translate3d(0%,0,0)' })
-        await next({ transform: 'translate3d(-20%,0,0)' })
-        await next({ transform: 'translate3d(0%,0,0)' })
+      if (!isPressed) {
+        await next({ left: "200px" })
+        await next({ left: "0px" })
+        await next({ left: "-200px" })
+        await next({ left: "0px" })
+      }else{
+        await next({ left: "0px" })
+        await next({ top: "600px"})
+        await next({ top: "500px"})
+        await next({ top: "0px"})
       }
     },
     config: {
-      mass: 100, tension: 580, friction: 200,
+      mass: 50, tension: 580, friction: 200,
     },
   })
 
-  //lower/up the claw
-  const lowerClaw = useSpring({
-    transform: isPressed ? 'translate3d(0,500px,0)' : 'translate3d(0, 0px, 0)',
-    config: {
-      mass: 100, tension: 580, friction: 200,
-    },
-  });
-
-  //Grip Claw NOT DONE
-  const movingShake = useSpring({
-    transform: isPressed ? 'transform: rotate(0deg)' : 'transform: rotate(20deg)',
-    config: {
-      mass: 100, tension: 580, friction: 200,
-    },
-  });
-
+ 
+  
   //Shake animation
   //Grip Claw
   //Pizza grabbed
+  //Camera shake when starting
 
 console.log(isPressed);
-
 
   return (
     <>
@@ -86,9 +80,9 @@ console.log(isPressed);
         <PizzaPile/>
         <Table/>
         {/* Claw */}
-        <animated.div className="claw-machine">
+        <animated.div style={repeat} className="claw-machine">
           <ClawBase/>
-          <animated.div style={gripClawLeft} className="claws">
+          <animated.div className="claws">
             <ClawLeft/>
             <ClawRight />
           </animated.div>
@@ -101,3 +95,52 @@ console.log(isPressed);
 }
 
 export default Scene;
+
+
+
+
+
+
+  //INTERPOLATION 
+  //<animated.div style={{transform: xyz.interpolate((x, y, z) => `translate3d(${x}%, ${y}px, ${z}px)`),}} className="claw-machine">
+  // const {xyz} = useSpring({
+  //   from: {xyz: [0, 0, 0]
+  //   },
+  //   to: async next => {
+  //     while (!isPressed) {
+  //       await next({ xyz: [20, 0, 0]})
+  //       await next({ xyz: [0, 0, 0]})
+  //       await next({ xyz: [-20, 0, 0]})
+  //       await next({ xyz: [0, 0, 0]})
+  //     }
+  //   },
+  //   config: {
+  //     mass: 100, tension: 580, friction: 200
+  //   },
+  // })
+
+
+         //await next({ transform: 'translate3d(-15%,0,0)' })
+        //await next({ transform: 'translate3d(0%,0,0)' })
+
+
+
+  // const lowerClaw = useSpring({
+  //   transform: isPressed ? 'translate3d(0,500px,0)' : 'translate3d(0, 0px, 0)',
+  //   config: {
+  //     mass: 100, tension: 580, friction: 200,
+  //   },
+  // });
+
+   // Makes the claw go down
+  //  const downUp = useSpring({
+  //   from: {
+  //     top: "0px"
+  //   },
+  //   to: { 
+  //     top: "600px"
+  //   },
+  //   config: {
+  //     mass: 50, tension: 580, friction: 200,
+  //   },
+  // })
