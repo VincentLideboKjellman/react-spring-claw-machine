@@ -8,6 +8,7 @@ overflow: hidden;
 top: 780px;
 right: 45%;
 transform: rotate(-40deg);
+z-index:5;
 
 img{
     width: 60%;

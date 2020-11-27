@@ -20,14 +20,13 @@ const StyledScene = styled(animated.div)`
 
     .claw-machine{
       position: absolute;
-      z-index: 1;
+      z-index: 6;
       top: 0;
       left: 0;
       width:100%;
     }
     .pizza-box{
       position: absolute;
-      z-index: 5;
       top: 0;
       left: 0;
       width:100%;
@@ -107,7 +106,6 @@ const Scene = ({...props}) => {
     },
     to: async next => {
       if(toggleClaw){
-        
         await next({ opacity: 1 })
       }
     },
