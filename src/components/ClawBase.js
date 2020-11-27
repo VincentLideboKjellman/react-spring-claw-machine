@@ -1,17 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
-import clawBase from '../assets/images/Claw_Base.png';
+import React from 'react'
+import styled from 'styled-components'
+import clawBase from '../assets/images/Claw_Base.png'
 
 const StyledClawBase = styled.div`
-position: absolute;
-overflow: hidden;
-top: -1500px;
-left: 47%;
+  position: absolute;
+  overflow: hidden;
+  top: -1500px;
+  left: 47%;
 
-img{
+  img {
     width: 60%;
-}
-
+  }
 `
 
 const ClawBase = () => {
@@ -19,7 +18,7 @@ const ClawBase = () => {
     <StyledClawBase>
       <img src={clawBase} alt="Claw Base"></img>
     </StyledClawBase>
-  );
+  )
 }
 
-export default ClawBase;
+export default ClawBase

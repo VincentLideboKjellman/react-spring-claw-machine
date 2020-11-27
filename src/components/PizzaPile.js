@@ -1,14 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
-import pizzaPile from '../assets/images/PizzaPile.png';
+import React from 'react'
+import styled from 'styled-components'
+import pizzaPile from '../assets/images/PizzaPile.png'
 
 const StyledPizzaPile = styled.div`
-position: absolute;
-z-index: 1;
-img{
-  width: 100%;
-  height:auto;
-}
+  position: absolute;
+  z-index: 1;
+  img {
+    width: 100%;
+    height: auto;
+  }
 `
 
 const PizzaPile = () => {
@@ -16,7 +16,7 @@ const PizzaPile = () => {
     <StyledPizzaPile>
       <img src={pizzaPile} alt="Pizza Pile"></img>
     </StyledPizzaPile>
-  );
+  )
 }
 
-export default PizzaPile;
+export default PizzaPile
