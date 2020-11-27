@@ -34,14 +34,7 @@ const StyledScene = styled(animated.div)`
       top: 0;
       left: 0;
       width:100%;
-    }
-    .big-button{
-      z-index:11
-      position:absolute;
-      width:100%;
-      top:100px;
-      left:100px;
-    }
+    }    
 `
 
 const Scene = ({ ...props }) => {
@@ -174,14 +167,12 @@ const Scene = ({ ...props }) => {
         </animated.div>
         {/* END Claw Machine */}
       </StyledScene>
-      <button
+      <button className="claw-button"
         style={{
           position: 'absolute',
           width: '100%',
           height: '100%',
           opacity: 0,
-          top: 40,
-          color: 'red',
           zIndex: '20',
         }}
         onClick={() => setPressed((isPressed = true))}
