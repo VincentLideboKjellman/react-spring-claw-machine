@@ -126,29 +126,16 @@ const Scene = ({ ...props }) => {
     delay: 2000,
   })
 
-  const objectShake = useSpring({
-    from: {
-      transform: 'scale(0)',
-    },
-    to: async (next) => {
-      if (!isPressed) {
-        await next({ transform: 'scale(2)' })
-        await next({ transform: 'scale(1)' })
-      }
-    },
-  })
-
   console.log(isPressed)
 
   return (
     <>
       <StyledScene style={fade} {...props}>
         <Backdrop
-          style={objectShake}
           backWidth={props.scenewidth}
           backHeight={props.sceneweight}
         />
-        <PizzaPile style={objectShake} />
+        <PizzaPile />
         <Table />
         {/* Claw Machine */}
         <animated.div style={repeat} className="claw-machine">
