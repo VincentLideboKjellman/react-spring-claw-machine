@@ -8,7 +8,7 @@ overflow: hidden;
 top: ${props => (props.top ? props.top : "210px")};
 right: ${props => (props.right ? props.right : "31%")};
 transform: rotate(${props => (props.rotate ? props.rotate : "0deg")});
-z-index:9;
+z-index: 9;
 
 img{
     width: 50%;

@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { useSpring, animated, config, useChain, useTransition } from 'react-spring';
+import React, { useState  } from 'react';
+import { useSpring, animated, config} from 'react-spring';
 import styled from 'styled-components';
 import Backdrop from './Backdrop';
 import ClawBase from './ClawBase';
@@ -36,6 +36,13 @@ const StyledScene = styled(animated.div)`
       top: 0;
       left: 0;
       width:100%;
+    }
+    .big-button{
+      z-index:11
+      position:absolute;
+      width:100%;
+      top:100px;
+      left:100px;
     }
 `
 
@@ -81,7 +88,6 @@ const Scene = ({...props}) => {
     },
   })
 
-  //Spawns a pizza and retracts it when the claw i ready
   const spawnPizza = useSpring({
     from: {
       top: "0px",
@@ -90,10 +96,9 @@ const Scene = ({...props}) => {
     to: async next => {
       if(togglePizza){
         await next ({ opacity: 1 })
-        await next ({ top: "-150px" })
-        await next ({ top: "-600px" })
       }
     },
+    delay: 500,
     config: {
       mass: 50, tension: 580, friction: 200,
     },
@@ -124,19 +129,24 @@ const Scene = ({...props}) => {
     delay: 2000
   });
 
- 
-  
-  //Shake animation
-  //Grip Claw
-  //Pizza grabbed
-  //Camera shake when starting
+  const objectShake = useSpring({
+    from: {
+      scale: 1,
+    },
+    to: async next => {
+      if(!isPressed){
+        await next({scale: 2})
+        await next ({scale: 1})
+      }
+    },
+  })
 
 console.log(isPressed);
 
   return (
     <>
       <StyledScene style={fade} {...props}>
-        <Backdrop backWidth={props.scenewidth} backHeight={props.sceneweight} />
+        <Backdrop style={objectShake} backWidth={props.scenewidth} backHeight={props.sceneweight} />
         <PizzaPile/>
         <Table/>
         {/* Claw */}
@@ -150,64 +160,14 @@ console.log(isPressed);
             <ClawLeft rotate="-40deg" top="190px" right="38%"/>
             <ClawRight rotate="40deg" top="310px" right="34%"/>
           </animated.div>
-        </animated.div>
-        <animated.div style={spawnPizza} className="pizza-box">
-          <SinglePizza  />
+          <animated.div style={spawnPizza} className="pizza-box">
+            <SinglePizza  />
+          </animated.div>
         </animated.div>
       </StyledScene>
-        <button style={{position:"absolute", top:0, color: "red", zIndex: "20"}} onClick={() => setPressed(isPressed = true)}>OFF</button>
-        <button style={{position:"absolute", top:20, color: "green", zIndex: "20"}} onClick={() => setPressed(isPressed = false)}>ON</button>
+        <button style={{position:"absolute", width:"100%", height:"100%", opacity: 0, top:40, color: "red", zIndex: "20"}} onClick={() => setPressed(isPressed = true)}>PRESS</button>
       </>
   );
 }
 
 export default Scene;
-
-
-
-
-
-
-  //INTERPOLATION 
-  //<animated.div style={{transform: xyz.interpolate((x, y, z) => `translate3d(${x}%, ${y}px, ${z}px)`),}} className="claw-machine">
-  // const {xyz} = useSpring({
-  //   from: {xyz: [0, 0, 0]
-  //   },
-  //   to: async next => {
-  //     while (!isPressed) {
-  //       await next({ xyz: [20, 0, 0]})
-  //       await next({ xyz: [0, 0, 0]})
-  //       await next({ xyz: [-20, 0, 0]})
-  //       await next({ xyz: [0, 0, 0]})
-  //     }
-  //   },
-  //   config: {
-  //     mass: 100, tension: 580, friction: 200
-  //   },
-  // })
-
-
-         //await next({ transform: 'translate3d(-15%,0,0)' })
-        //await next({ transform: 'translate3d(0%,0,0)' })
-
-
-
-  // const lowerClaw = useSpring({
-  //   transform: isPressed ? 'translate3d(0,500px,0)' : 'translate3d(0, 0px, 0)',
-  //   config: {
-  //     mass: 100, tension: 580, friction: 200,
-  //   },
-  // });
-
-   // Makes the claw go down
-  //  const downUp = useSpring({
-  //   from: {
-  //     top: "0px"
-  //   },
-  //   to: { 
-  //     top: "600px"
-  //   },
-  //   config: {
-  //     mass: 50, tension: 580, friction: 200,
-  //   },
-  // })
