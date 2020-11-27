@@ -5,7 +5,7 @@ import table from '../assets/images/Table_Top.png';
 const StyledTable = styled.div`
 
 position: absolute;
-z-index: 2;
+z-index: 10;
 `
 const Table = ({...props}) => {
   return (

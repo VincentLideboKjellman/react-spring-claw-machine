@@ -32,12 +32,19 @@ const StyledScene = styled(animated.div)`
       left: 0;
       width:100%;
     }
+    .closed-claws{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width:100%;
+    }
 `
 
 const Scene = ({...props}) => {
 
   let [isPressed, setPressed] = useState(false);
   let [togglePizza, setTogglePizza] = useState(false);
+  let [toggleClaw, setToggleClaw] = useState(false);
 
   
   const fade = useSpring({
@@ -64,8 +71,9 @@ const Scene = ({...props}) => {
       }if(isPressed){
         await next({ left: "0px" })
         await next({ top: "600px"})
-        await next({ top: "450px"})
+        await next({ top: "410px"})
         setTogglePizza(true);
+        setToggleClaw(true);
         await next({ top: "0px"})
       }
     },
@@ -74,7 +82,7 @@ const Scene = ({...props}) => {
     },
   })
 
-  //TODO: Might need to do interpolation
+  //Spawns a pizza and retracts it when the claw i ready
   const spawnPizza = useSpring({
     from: {
       top: "0px",
@@ -83,13 +91,39 @@ const Scene = ({...props}) => {
     to: async next => {
       if(togglePizza){
         await next ({ opacity: 1 })
-        await next ({ top: "-100px" })
+        await next ({ top: "-150px" })
         await next ({ top: "-600px" })
       }
     },
     config: {
       mass: 50, tension: 580, friction: 200,
     },
+  });
+
+  //Claw animations/switch
+  const closedClaw = useSpring({
+    from: {
+      opacity: 0,
+    },
+    to: async next => {
+      if(toggleClaw){
+        
+        await next({ opacity: 1 })
+      }
+    },
+    delay: 2000
+  });
+
+  const openClaw = useSpring({
+    from: {
+      opacity: 1,
+    },
+    to: async next => {
+      if(toggleClaw){
+        await next({ opacity: 0 })
+      }
+    },
+    delay: 2000
   });
 
  
@@ -110,9 +144,13 @@ console.log(isPressed);
         {/* Claw */}
         <animated.div style={repeat} className="claw-machine">
           <ClawBase/>
-          <animated.div className="claws">
+          <animated.div style={openClaw} className="claws">
             <ClawLeft/>
-            <ClawRight />
+            <ClawRight/>
+          </animated.div>
+          <animated.div style={closedClaw} className="closed-claws">
+            <ClawLeft rotate="-40deg" top="190px" right="38%"/>
+            <ClawRight rotate="40deg" top="310px" right="34%"/>
           </animated.div>
         </animated.div>
         <animated.div style={spawnPizza} className="pizza-box">

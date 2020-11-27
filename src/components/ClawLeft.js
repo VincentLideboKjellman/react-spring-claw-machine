@@ -5,8 +5,9 @@ import clawLeft from '../assets/images/Claw_Arm_Left.png';
 const StyledClawLeft = styled.div`
 position: absolute;
 overflow: hidden;
-top: 210px;
-right: 39%;
+top: ${props => (props.top ? props.top : "210px")};
+right: ${props => (props.right ? props.right : "39%")};
+transform: rotate(${props => (props.rotate ? props.rotate : "0deg")});
 
 img{
     width: 50%;
@@ -14,9 +15,9 @@ img{
 
 `
 
-const ClawLeft = () => {
+const ClawLeft = ({...props}) => {
   return (
-    <StyledClawLeft>
+    <StyledClawLeft {...props}>
       <img src={clawLeft} alt="Claw Left"></img>
     </StyledClawLeft>
   );
