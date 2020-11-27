@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useSpring, animated, config } from 'react-spring'
+import { useSpring, animated } from 'react-spring'
 import styled from 'styled-components'
 import Backdrop from './Backdrop'
 import ClawBase from './ClawBase'
